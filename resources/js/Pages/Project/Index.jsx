@@ -22,6 +22,19 @@ export default function Index({ auth, projects, queryParams = null }){
         searchFieldChanged(name, e.target.value);
     }
 
+    const sortChanged = (name) => {
+        if (name === queryParams.sort_field){
+            if (queryParams.sort_direction == 'asc')
+                queryParams.sort_direction = 'desc';
+            else
+                queryParams.sort_direction = 'asc';
+        } else {
+            queryParams.sort_field = name;
+            queryParams.sort_direction = 'asc';
+        }
+        router.get(route('project.index'), queryParams);
+    }
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -32,17 +45,17 @@ export default function Index({ auth, projects, queryParams = null }){
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg dark:bg-gray-800">
-                        <div className="p-6 text-gray-900 dark:text-gray-100">
-                            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <div className="p-6 text-gray-900 dark:text-gray-100 overflow-auto">
+                            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 overflow-auto">
                                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b-2 border-gray-500">
                                     <tr className="text-nowrap">
-                                        <th className="px-3 py-3">ID</th>
+                                        <th onClick={(e)=>sortChanged('id')} className="px-3 py-3">ID</th>
                                         <th className="px-3 py-3">Image</th>
-                                        <th className="px-3 py-3">Name</th>
-                                        <th className="px-3 py-3">Status</th>
-                                        <th className="px-3 py-3">Create Date</th>
-                                        <th className="px-3 py-3">Due Date</th>
-                                        <th className="px-3 py-3">Created By</th>
+                                        <th onClick={(e)=>sortChanged('name')} className="px-3 py-3">Name</th>
+                                        <th onClick={(e)=>sortChanged('status')} className="px-3 py-3">Status</th>
+                                        <th onClick={(e)=>sortChanged('created_at')} className="px-3 py-3">Create Date</th>
+                                        <th onClick={(e)=>sortChanged('due_date')} className="px-3 py-3">Due Date</th>
+                                        <th onClick={(e)=>sortChanged('created_by')} className="px-3 py-3">Created By</th>
                                         <th className="px-3 py-3">Actions</th>
                                     </tr>
                                 </thead>
