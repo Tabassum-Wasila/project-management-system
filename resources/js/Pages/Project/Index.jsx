@@ -2,6 +2,8 @@ import Pagination from "@/Components/Pagination";
 import TextInput from "@/Components/TextInput";
 import SelectInput from "@/Components/SelectInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import {ChevronUpIcon, ChevronDownIcon} from '@heroicons/react/20/solid'
+import ColumnHeading from "@/Components/ColumnHeading";
 import { PROJECT_STATUS_CLASS_MAP, PROJECT_STATUS_TEXT_MAP } from "@/constants.jsx";
 import { Head, Link, router } from "@inertiajs/react";
 export default function Index({ auth, projects, queryParams = null }){
@@ -49,13 +51,13 @@ export default function Index({ auth, projects, queryParams = null }){
                             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 overflow-auto">
                                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b-2 border-gray-500">
                                     <tr className="text-nowrap">
-                                        <th onClick={(e)=>sortChanged('id')} className="px-3 py-3">ID</th>
+                                        <ColumnHeading name='id' queryParams={queryParams} sortChanged={sortChanged}>ID</ColumnHeading>
                                         <th className="px-3 py-3">Image</th>
-                                        <th onClick={(e)=>sortChanged('name')} className="px-3 py-3">Name</th>
-                                        <th onClick={(e)=>sortChanged('status')} className="px-3 py-3">Status</th>
-                                        <th onClick={(e)=>sortChanged('created_at')} className="px-3 py-3">Create Date</th>
-                                        <th onClick={(e)=>sortChanged('due_date')} className="px-3 py-3">Due Date</th>
-                                        <th onClick={(e)=>sortChanged('created_by')} className="px-3 py-3">Created By</th>
+                                        <ColumnHeading name='name' queryParams={queryParams} sortChanged={sortChanged}>Name</ColumnHeading>
+                                        <ColumnHeading name='status' queryParams={queryParams} sortChanged={sortChanged}>Status</ColumnHeading>
+                                        <ColumnHeading name='created_at' queryParams={queryParams} sortChanged={sortChanged}>Create Date</ColumnHeading>
+                                        <ColumnHeading  name='due_date' queryParams={queryParams} sortChanged={sortChanged}>Due Date</ColumnHeading>
+                                        <ColumnHeading name='created_by' queryParams={queryParams} sortChanged={sortChanged}>Created By</ColumnHeading>
                                         <th className="px-3 py-3">Actions</th>
                                     </tr>
                                 </thead>
@@ -74,9 +76,9 @@ export default function Index({ auth, projects, queryParams = null }){
                                             <SelectInput
                                                 defaultValue={queryParams.status} 
                                                 onChange={(e)=> searchFieldChanged("status", e.target.value)}>  
-                                                <option value="">Select Status</option>
+                                                <option key="" value="">Select Status</option>
                                                 { Object.keys(PROJECT_STATUS_TEXT_MAP).map(key => (
-                                                    <option value={key}>{PROJECT_STATUS_TEXT_MAP[key]}</option>
+                                                    <option key={key} value={key}>{PROJECT_STATUS_TEXT_MAP[key]}</option>
                                                 ))}
                                             </SelectInput>
                                         </th>
