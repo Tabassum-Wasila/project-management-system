@@ -2,7 +2,6 @@ import Pagination from "@/Components/Pagination";
 import TextInput from "@/Components/TextInput";
 import SelectInput from "@/Components/SelectInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import {ChevronUpIcon, ChevronDownIcon} from '@heroicons/react/20/solid'
 import ColumnHeading from "@/Components/ColumnHeading";
 import { PROJECT_STATUS_CLASS_MAP, PROJECT_STATUS_TEXT_MAP } from "@/constants.jsx";
 import { Head, Link, router } from "@inertiajs/react";
@@ -40,7 +39,7 @@ export default function Index({ auth, projects, queryParams = null }){
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Projects</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Projects</h2>}
         >
             <Head title="Projects" />
             
@@ -95,7 +94,11 @@ export default function Index({ auth, projects, queryParams = null }){
                                             <td className="px-3 py-2">
                                                 <img className="w-25 h-20 bg-gradient-to-r from-gray-900 to-gray-700" src={project.image_path} alt="No Image"></img>
                                             </td>
-                                            <td className="px-3 py-2">{project.name}</td>
+                                            <td className="px-3 py-2 hover:underline dark:text-gray-100 text-gray-800">
+                                                <Link href={route('project.show', project.id)}>
+                                                    {project.name}
+                                                </Link>
+                                            </td>
                                             <td className="px-3 py-2"> 
                                                     <span className={"text-gray-100 font-semibold px-2 py-1 rounded " + PROJECT_STATUS_CLASS_MAP[project.status]}
                                                     >
