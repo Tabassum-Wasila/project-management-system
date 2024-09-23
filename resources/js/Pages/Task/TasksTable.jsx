@@ -6,7 +6,7 @@ import { TASK_STATUS_CLASS_MAP, TASK_STATUS_TEXT_MAP } from "@/constants.jsx";
 import {Link, router } from "@inertiajs/react";
 
 
-export default function TasksTable({tasks, queryParams = null, hideProjectColumn = false}){
+export default function TasksTable({tasks, queryParams = null, hideProjectColumn = false, success}){
     queryParams = queryParams || {}
     const searchFieldChanged = (name, value) => {
         if (value) {
@@ -36,8 +36,21 @@ export default function TasksTable({tasks, queryParams = null, hideProjectColumn
         }
         router.get(route('task.index'), queryParams);
     }
+
+    const deleteTask = (task) => {
+        if(!window.confirm('Are you sure you want to delete this task?'))
+            return;
+        router.delete(route('task.destroy', task.id));
+    }
+
     
     return (
+      <>
+        {success && (
+            <div className="bg-emerald-500 py-2 px-4 rounded text-white mb-4">
+                {success}
+            </div>
+        )}
         <div className="p-6 text-gray-900 dark:text-gray-100 overflow-auto">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 overflow-auto">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b-2 border-gray-500">
@@ -105,17 +118,17 @@ export default function TasksTable({tasks, queryParams = null, hideProjectColumn
                             <td className="px-3 py-2">{task.created_at}</td>
                             <td className="px-3 py-2">{task.due_date}</td>
                             <td className="px-3 py-2">{task.createdBy.name}</td>
-                            <td className="px-3 py-2">
-                            <Link href={route("task.edit", task.id)}
+                            <td className="px-3 py-2 text-nowrap">
+                                <Link href={route("task.edit", task.id)}
                                 className="font-medium text-blue-600 dark:text-blue-500 hover:underline mx-1"
                                 >
                                     Edit
                                 </Link>
-                                <Link href={route("task.destroy", task.id)}
+                                <button onClick={(e) => deleteTask(task)}
                                 className="font-medium text-red-600 dark:red-blue-500 hover:underline mx-1"
                                 >
                                     Delete
-                                </Link>
+                                </button>
                             </td>
 
                         </tr>
@@ -124,5 +137,6 @@ export default function TasksTable({tasks, queryParams = null, hideProjectColumn
             </table>
             <Pagination links={tasks.meta.links}></Pagination>
         </div>
+      </>
     )
 }

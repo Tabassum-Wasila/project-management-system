@@ -37,7 +37,7 @@ export default function Show({ auth, project, tasks, queryParams = null }){
                                     </div>
                                     <div>
                                         <InfoItem label="Due Date">{project.due_date}</InfoItem>
-                                        <InfoItem label="Created By">{project.created_at}</InfoItem>
+                                        <InfoItem label="Create Date">{project.created_at}</InfoItem>
                                         <InfoItem label="Updated By">{project.updatedBy.name}</InfoItem>
                                     </div>
                                 </div>
