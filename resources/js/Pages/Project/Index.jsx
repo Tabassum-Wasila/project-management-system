@@ -122,7 +122,7 @@ export default function Index({ auth, projects, queryParams = null, success }){
                                                 </Link>
                                             </td>
                                             <td className="px-3 py-2"> 
-                                                    <span className={"text-gray-100 font-semibold px-2 py-1 rounded " + PROJECT_STATUS_CLASS_MAP[project.status]}
+                                                    <span className={"text-gray-100 text-nowrap font-semibold px-2 py-1 rounded " + PROJECT_STATUS_CLASS_MAP[project.status]}
                                                     >
                                                         {PROJECT_STATUS_TEXT_MAP[project.status]}
                                                     </span>

@@ -15,7 +15,7 @@ export default function TasksTable({tasks, queryParams = null, hideProjectColumn
             delete queryParams[name]
         }
 
-        router.get(route('task.index'), queryParams);
+        router.get(route(window.location.href), queryParams);
     }
 
     const onKeyPress = (name, e) => {
@@ -34,7 +34,7 @@ export default function TasksTable({tasks, queryParams = null, hideProjectColumn
             queryParams.sort_field = name;
             queryParams.sort_direction = 'asc';
         }
-        router.get(route('task.index'), queryParams);
+        router.get(window.location.href, queryParams);
     }
 
     const deleteTask = (task) => {
@@ -105,9 +105,14 @@ export default function TasksTable({tasks, queryParams = null, hideProjectColumn
                             <td className="px-3 py-2">
                                 <img className="w-25 h-20 bg-gradient-to-r from-gray-900 to-gray-700" src={task.image_path} alt="No Image"></img>
                             </td>
-                            <td className="px-3 py-2">{task.name}</td>
+                            <td className="px-3 py-2 hover:underline dark:text-gray-100 text-gray-800">
+                                <Link href={route('task.show', task.id)}>
+                                    {task.name}
+                                </Link>
+                            </td>
                             <td className="px-3 py-2"> 
-                                    <span className={"text-gray-100 font-semibold px-2 py-1 rounded " + TASK_STATUS_CLASS_MAP[task.status]}
+                                    <span className={"text-gray-100 text-nowrap font-semibold px-2 py-1 rounded " 
+                                                        + TASK_STATUS_CLASS_MAP[task.status]}
                                     >
                                         {TASK_STATUS_TEXT_MAP[task.status]}
                                     </span>
