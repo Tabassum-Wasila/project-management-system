@@ -41,6 +41,7 @@ class TaskController extends Controller
         return inertia("Task/Index", [
                 'tasks' => TaskResource::collection($tasks),
                 'queryParams' => request()->query() ?: null,
+                'hideColumns' => ['priority', 'updated_by'],
                 'success' => session('success')
             ]);
     }
@@ -161,6 +162,7 @@ class TaskController extends Controller
         return inertia("Task/Index", [
                 'tasks' => TaskResource::collection($tasks),
                 'queryParams' => request()->query() ?: null,
+                'hideColumns' => ['created_by', 'created_at'],
                 'success' => session('success')
             ]);
     }

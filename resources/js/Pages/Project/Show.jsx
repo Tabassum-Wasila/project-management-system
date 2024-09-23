@@ -44,7 +44,7 @@ export default function Show({ auth, project, tasks, queryParams = null }){
                                 <InfoItem label="Project Description">{project.description}</InfoItem>
                             </section>
                         </div>
-                        <TasksTable tasks={tasks} queryParams={queryParams} hideProjectColumn = {true}/>
+                        <TasksTable tasks={tasks} queryParams={queryParams} hideColumns = {['project']}/>
                 </div>
             </div>
         </div>
